@@ -1,10 +1,10 @@
 # Amigo Secreto 🎉
 
-¡Bienvenido al proyecto "Amigo Secreto"! Este es un sencillo juego en el que puedes agregar nombres de amigos y realizar un sorteo para ver quién será el amigo secreto de cada uno. 
+¡Bienvenido a mi proyecto "Amigo Secreto"! Este es un juego en el que puedes agregar nombres de amigos y realizar un sorteo para ver quién será el amigo secreto de cada uno. 
 
 ## Descripción 📜
 
-El proyecto "Amigo Secreto" permite a los usuarios ingresar los nombres de sus amigos en una lista y realizar un sorteo aleatorio para asignar amigos secretos. 
+El proyecto "Amigo Secreto" permite a los participantes ingresar los nombres de sus amigos en una lista y realizar un sorteo aleatorio para asignar amigos secretos. 
 
 ## Características 🌟
 
