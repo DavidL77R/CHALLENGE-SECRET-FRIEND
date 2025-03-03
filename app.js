@@ -1,48 +1,51 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
 // Declara una variable de tipo array para almacenar los nombres de los amigos
-let participantes = [];
+const participantes = [];
 
-// Espera a que el documento esté completamente cargado
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtén las referencias a los elementos del DOM
-    let inputNombre = document.getElementById('nombre');
-    let btnAdicionar = document.getElementById('adicionar');
-    let listaParticipantes = document.getElementById('lista-participantes');
-    let btnSortear = document.getElementById('sortear');
-    let resultado = document.getElementById('resultado');
+// Función para mostrar el mensaje de bienvenida como alerta
+function mostrarAlertaBienvenida() {
+    alert('¡Bienvenido al juego de "Amigo Secreto"! 🎉\n\nPara comenzar, simplemente escribe el nombre de tus amigos en el campo de texto y haz clic en "Añadir". ¡Así podrás crear la lista de participantes para el sorteo!');
+}
 
-    // Función para actualizar la lista de participantes en el DOM
-    function actualizarLista() {
-        listaParticipantes.innerHTML = ""; // Limpia la lista existente
-        for (let i = 0; i < participantes.length; i++) {
-            let li = document.createElement('li'); // Crea un nuevo elemento de lista
-            li.textContent = participantes[i]; // Establece el contenido del elemento de lista
-            listaParticipantes.appendChild(li); // Añade el elemento de lista a la lista de participantes
-        }
+// Función para agregar un amigo a la lista
+function agregarAmigo() {
+    const inputNombre = document.querySelector('#amigo');
+    const listaAmigos = document.querySelector('#listaAmigos');
+    const nombre = inputNombre.value.trim(); // Obtén el valor del campo de texto y quita los espacios
+
+    if (nombre && !participantes.includes(nombre)) { // Verificar que el nombre no esté vacío ni duplicado
+        participantes.push(nombre); // Agrega el nombre a la lista de participantes
+        actualizarLista(listaAmigos); // Actualiza la lista en el DOM
+        inputNombre.value = ''; // Limpia el campo de texto
+    } else {
+        alert('Este nombre ya se encuentra en la lista, por favor ingresa información extra como un apellido.');
     }
+}
 
-    // Función para realizar el sorteo aleatorio de un amigo
-    function sortearAmigo() {
-        if (participantes.length > 0) { // Validar que haya amigos disponibles
-            let indiceAleatorio = Math.floor(Math.random() * participantes.length); // Generar un índice aleatorio
-            let amigoSecreto = participantes[indiceAleatorio]; // Obtener el nombre sorteado
-            resultado.textContent = 'El amigo secreto es: ' + amigoSecreto; // Mostrar el resultado
-        } else {
-            resultado.textContent = 'Por favor, adiciona nombres a la lista.'; // Mostrar un mensaje si la lista está vacía
-        }
-    }
-
-    // Agrega un evento de clic al botón "Adicionar"
-    btnAdicionar.addEventListener('click', function() {
-        let nombre = inputNombre.value.trim(); // Obtén el valor del campo de texto y quita los espacios
-        if (nombre) {
-            participantes.push(nombre); // Agrega el nombre a la lista de participantes
-            actualizarLista(); // Actualiza la lista en el DOM
-            inputNombre.value = ''; // Limpia el campo de texto
-        }
+// Función para actualizar la lista de participantes en el DOM
+function actualizarLista(lista) {
+    lista.innerHTML = ''; // Limpia la lista existente
+    participantes.forEach(participante => {
+        const li = document.createElement('li'); // Crea un nuevo elemento de lista
+        li.textContent = participante; // Establece el contenido del elemento de lista
+        lista.appendChild(li); // Añade el elemento de lista a la lista de participantes
     });
+}
 
-    // Agrega un evento de clic al botón "Sortear"
-    btnSortear.addEventListener('click', sortearAmigo); // Llama a la función sortearAmigo cuando se haga clic
-});
+// Función para realizar el sorteo aleatorio de un amigo
+function sortearAmigo() {
+    const resultado = document.querySelector('#resultado');
+
+    if (participantes.length < 2) { // Validar que haya al menos dos amigos disponibles
+        resultado.innerHTML = 'Por favor, adiciona al menos dos nombres a la lista.'; // Mostrar un mensaje si la lista tiene menos de dos nombres
+        return;
+    }
+
+    const indiceAleatorio = Math.floor(Math.random() * participantes.length); // Generar un índice aleatorio
+    const amigoSecreto = participantes[indiceAleatorio]; // Obtener el nombre sorteado
+    resultado.innerHTML = `El amigo secreto es: ${amigoSecreto}`; // Mostrar el resultado
+}
+
+// Llamar a la función para mostrar el mensaje de bienvenida al cargar la página
+document.addEventListener('DOMContentLoaded', mostrarAlertaBienvenida);
